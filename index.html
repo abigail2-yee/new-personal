@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abby Shen</title>
+  <link rel="icon" type="image/png" href="imgs/0-lamp-ideas.png">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background-color: #F5F5DC;
+      overflow: hidden;
+      height: 100vh;
+      font-family: Arial, sans-serif;
+    }
+
+    .static-image {
+      position: absolute;
+      transition: transform 0.3s ease;
+      object-fit: cover;
+    }
+
+    .static-image:hover {
+      transform: scale(1.1);
+    }
+  </style>
+</head>
+<body>
+  <img class="static-image" id="image1" src="imgs/0-lamp-ideas.png" alt="Lamp Ideas">
+  <img class="static-image" id="image2" src="imgs/1-book.png" alt="Book">
+  <img class="static-image" id="image3" src="imgs/2-food.png" alt="Food">
+  <img class="static-image" id="image4" src="imgs/3-travel.png" alt="Travel">
+  <img class="static-image" id="image5" src="imgs/4-photog.png" alt="Photography">
+
+  <script>
+    class StaticImage {
+      constructor(element, baseWidth, baseHeight) {
+        this.element = element;
+        this.baseWidth = baseWidth;
+        this.baseHeight = baseHeight;
+        this.updateSize();
+      }
+
+      updateSize() {
+        const screenWidth = window.innerWidth;
+        const scaleFactor = Math.max(0.3, Math.min(1.2, screenWidth / 1920));
+        this.width = Math.round(this.baseWidth * scaleFactor);
+        this.height = Math.round(this.baseHeight * scaleFactor);
+        this.element.style.width = this.width + 'px';
+        this.element.style.height = this.height + 'px';
+      }
+
+      setPosition(x, y) {
+        this.element.style.left = x + 'px';
+        this.element.style.top = y + 'px';
+      }
+    }
+
+    const cursorImages = [
+      'cursors/c_13.png',
+      'cursors/c_15.png',
+      'cursors/c_25.png',
+      'cursors/c_101.png',
+      'cursors/c_359.png'
+    ];
+
+    function setRandomCursor() {
+      const randomCursor = cursorImages[Math.floor(Math.random() * cursorImages.length)];
+      document.body.style.cursor = `url('${randomCursor}') 16 16, auto`;
+    }
+
+    const images = [
+      new StaticImage(document.getElementById('image1'), 350, 350),
+      new StaticImage(document.getElementById('image2'), 200, 200),
+      new StaticImage(document.getElementById('image3'), 300, 300),
+      new StaticImage(document.getElementById('image4'), 200, 200),
+      new StaticImage(document.getElementById('image5'), 250, 250)
+    ];
+
+    function generateRandomPositions() {
+      const positions = [];
+      const minDistance = 50;
+      const maxAttempts = 200;
+
+      images.forEach(image => image.updateSize());
+
+      for (let i = 0; i < images.length; i++) {
+        let validPosition = false;
+        let attempts = 0;
+        let x, y;
+
+        while (!validPosition && attempts < maxAttempts) {
+          x = Math.random() * (window.innerWidth - images[i].width - 50);
+          y = Math.random() * (window.innerHeight - images[i].height - 50);
+
+          x = Math.max(25, Math.min(window.innerWidth - images[i].width - 25, x));
+          y = Math.max(25, Math.min(window.innerHeight - images[i].height - 25, y));
+
+          validPosition = true;
+          for (let j = 0; j < positions.length; j++) {
+            const existing = positions[j];
+            const other = images[j];
+
+            const overlap = !(
+              x > existing.x + other.width + minDistance ||
+              x + images[i].width + minDistance < existing.x ||
+              y > existing.y + other.height + minDistance ||
+              y + images[i].height + minDistance < existing.y
+            );
+
+            if (overlap) {
+              validPosition = false;
+              break;
+            }
+          }
+
+          attempts++;
+        }
+
+        if (!validPosition) {
+          x = Math.random() * (window.innerWidth - images[i].width - 50);
+          y = Math.random() * (window.innerHeight - images[i].height - 50);
+          x = Math.max(25, Math.min(window.innerWidth - images[i].width - 25, x));
+          y = Math.max(25, Math.min(window.innerHeight - images[i].height - 25, y));
+        }
+
+        positions.push({ x, y });
+        images[i].setPosition(x, y);
+      }
+    }
+
+    window.addEventListener('resize', generateRandomPositions);
+
+    generateRandomPositions();
+    setRandomCursor();
+  </script>
+
+  <!-- PlayHTML plugin -->
+  <script src="https://unpkg.com/playhtml@latest/dist/playhtml.js"></script>
+</body>
+</html>
