@@ -28,6 +28,64 @@
     .static-image:hover {
       transform: scale(1.1);
     }
+
+    @font-face {
+    font-family: 'NyghtSerif-LightItalic';
+    src: url('nyght-serif-main-font-otf/NyghtSerif-LightItalic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    }
+
+    @font-face {
+    font-family: 'NyghtSerif-RegularItalic';
+    src: url('nyght-serif-main-font-otf/NyghtSerif-RegularItalic.otf') format('opentype');
+    font-weight: normal;
+    font-style: italic;
+    }
+
+    #welcome-text {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60%;
+    text-align: center;
+    font-size: 2.2rem;
+    font-family: 'NyghtSerif-LightItalic', serif;
+    color: #333;
+    z-index: 10; /* Stay above images */
+    pointer-events: none; /* So it doesn’t interfere with hovering images */
+    }
+    
+    .news-ticker {
+      position: fixed;
+      top: 0;
+      width: 100%;
+      height: 40px;
+      background-color: #F5F5DC;
+      color: #F57C00;
+      font-family: 'NyghtSerif-LightItalic', serif;
+      font-size: 16px;
+      overflow: hidden;
+      z-index: 9999;
+      display: flex;
+      align-items: center;
+    }
+
+    .ticker-text {
+      white-space: nowrap;
+      padding-left: 100%;
+      animation: scroll-left 45s linear infinite;
+    }
+
+    @keyframes scroll-left {
+      0% {
+        transform: translateX(0%);
+      }
+      100% {
+        transform: translateX(-100%);
+      }
+    }
   </style>
 </head>
 <body>
@@ -36,6 +94,19 @@
   <img class="static-image" id="image3" src="imgs/2-food.png" alt="Food">
   <img class="static-image" id="image4" src="imgs/3-travel.png" alt="Travel">
   <img class="static-image" id="image5" src="imgs/4-photog.png" alt="Photography">
+  <div id="welcome-text">welcome to abby's little nook on the internet</div>
+
+  <div class="news-ticker">
+    <div class="ticker-text">
+      name: abby shen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      job: chief of staff&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      mbti: enfj-a&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      enneagram: 8, the challenger&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      zodiac: cancer&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+      "Tell me, what is it you want to do with your one wild and precious life" - Mary Oliver&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    </div>
+  </div>
+
 
   <script>
     class StaticImage {
@@ -82,57 +153,75 @@
       new StaticImage(document.getElementById('image5'), 250, 250)
     ];
 
-    function generateRandomPositions() {
-      const positions = [];
-      const minDistance = 50;
-      const maxAttempts = 200;
 
-      images.forEach(image => image.updateSize());
+  function generateRandomPositions() {
+  const positions = [];
+  const minDistance = 50;
+  const maxAttempts = 200;
 
-      for (let i = 0; i < images.length; i++) {
-        let validPosition = false;
-        let attempts = 0;
-        let x, y;
+  images.forEach(image => image.updateSize());
 
-        while (!validPosition && attempts < maxAttempts) {
-          x = Math.random() * (window.innerWidth - images[i].width - 50);
-          y = Math.random() * (window.innerHeight - images[i].height - 50);
+  // Get welcome text dimensions and position
+  const welcome = document.getElementById('welcome-text');
+  const welcomeRect = {
+    x: window.innerWidth / 2 - (welcome.offsetWidth / 2),
+    y: window.innerHeight / 2 - (welcome.offsetHeight / 2),
+    width: welcome.offsetWidth,
+    height: welcome.offsetHeight
+  };
 
-          x = Math.max(25, Math.min(window.innerWidth - images[i].width - 25, x));
-          y = Math.max(25, Math.min(window.innerHeight - images[i].height - 25, y));
+  for (let i = 0; i < images.length; i++) {
+    let validPosition = false;
+    let attempts = 0;
+    let x, y;
 
-          validPosition = true;
-          for (let j = 0; j < positions.length; j++) {
-            const existing = positions[j];
-            const other = images[j];
+    while (!validPosition && attempts < maxAttempts) {
+      x = Math.random() * (window.innerWidth - images[i].width - 50);
+      y = Math.random() * (window.innerHeight - images[i].height - 50);
 
-            const overlap = !(
-              x > existing.x + other.width + minDistance ||
-              x + images[i].width + minDistance < existing.x ||
-              y > existing.y + other.height + minDistance ||
-              y + images[i].height + minDistance < existing.y
-            );
+      x = Math.max(25, Math.min(window.innerWidth - images[i].width - 25, x));
+      y = Math.max(25, Math.min(window.innerHeight - images[i].height - 25, y));
 
-            if (overlap) {
-              validPosition = false;
-              break;
-            }
-          }
+      validPosition = true;
 
-          attempts++;
+      // Avoid other images
+      for (let j = 0; j < positions.length; j++) {
+        const other = images[j];
+        const existing = positions[j];
+
+        const overlap = !(
+          x > existing.x + other.width + minDistance ||
+          x + images[i].width + minDistance < existing.x ||
+          y > existing.y + other.height + minDistance ||
+          y + images[i].height + minDistance < existing.y
+        );
+
+        if (overlap) {
+          validPosition = false;
+          break;
         }
-
-        if (!validPosition) {
-          x = Math.random() * (window.innerWidth - images[i].width - 50);
-          y = Math.random() * (window.innerHeight - images[i].height - 50);
-          x = Math.max(25, Math.min(window.innerWidth - images[i].width - 25, x));
-          y = Math.max(25, Math.min(window.innerHeight - images[i].height - 25, y));
-        }
-
-        positions.push({ x, y });
-        images[i].setPosition(x, y);
       }
+
+      // Avoid the welcome text area
+      const overlapsWelcome = !(
+        x + images[i].width + minDistance < welcomeRect.x ||
+        x > welcomeRect.x + welcomeRect.width + minDistance ||
+        y + images[i].height + minDistance < welcomeRect.y ||
+        y > welcomeRect.y + welcomeRect.height + minDistance
+      );
+
+      if (overlapsWelcome) {
+        validPosition = false;
+      }
+
+      attempts++;
     }
+
+    positions.push({ x, y });
+    images[i].setPosition(x, y);
+  }
+}
+
 
     window.addEventListener('resize', generateRandomPositions);
 
