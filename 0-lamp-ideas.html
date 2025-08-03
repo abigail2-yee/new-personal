@@ -1,13 +1,88 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ideas</title>
-    <link rel="icon" type="image/png" href="imgs/0-lamp-ideas.png">
-  </head>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ideas</title>
+  <link rel="icon" type="image/png" href="imgs/0-lamp-ideas.png">
+  
+  <style>
+    @font-face {
+      font-family: 'BZD_COLOUR_RGB';
+      src: url('other-font-otf/bianzhidai_COLR-RGB.otf') format('opentype');
+      font-weight: normal;
+      font-style: italic;
+    }
 
-  <body>
-    <p>Paragraph</p>
-  </body>
+    body {
+      background-color: #F5F5DC;
+      padding: 20px;
+      padding-left: 10px;
+    }
+
+    .lamp-icon {
+      width: 80px;
+      height: 80px;
+      margin-bottom: 20px;
+      cursor: pointer;
+    }
+
+    h2 {
+      font-family: 'BZD_COLOUR_RGB', serif;
+      font-size: 20px;
+      margin-bottom: 15px;
+      margin-top: 20px;
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    ul {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    li {
+      color: #F57C00;
+    }
+
+    a {
+      color: #F57C00;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <img src="imgs/0-lamp-ideas.png" alt="Ideas" class="lamp-icon" onclick="goBack()">
+  
+  <h2>What I've been thinking about recently</h2>
+  <ul>
+    <li>Jungian's shadow self</li>
+    <li>playing language games</li>
+    <li>the tension between simplification and being puritanical about keeping complexity in its full form</li>
+  </ul>
+
+  <h2>Fully formed ideas in the form of essays</h2>
+  <ul>
+    <li>Watch this space!</li>
+  </ul>
+
+  <h2>Readings that got me thinking</h2>
+  <ul>
+    <li><a href="https://www.henrikkarlsson.xyz/p/looking-for-alice" target="_blank">Looking for Alice</a></li>
+    <li><a href="https://www.theparisreview.org/blog/2019/07/16/the-crane-wife/" target="_blank">The Crane Wife</a></li>
+  </ul>
+
+  <script>
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+  </script>
+</body>
 </html>
