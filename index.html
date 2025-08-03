@@ -89,11 +89,11 @@
   </style>
 </head>
 <body>
-  <img class="static-image" id="image1" src="imgs/0-lamp-ideas.png" alt="Lamp Ideas">
-  <img class="static-image" id="image2" src="imgs/1-book.png" alt="Book">
-  <img class="static-image" id="image3" src="imgs/2-food.png" alt="Food">
-  <img class="static-image" id="image4" src="imgs/3-travel.png" alt="Travel">
-  <img class="static-image" id="image5" src="imgs/4-photog.png" alt="Photography">
+  <img class="static-image" id="image1" src="imgs/0-lamp-ideas.png" alt="Lamp Ideas" onclick="goToIdeas()">
+  <img class="static-image" id="image2" src="imgs/1-book.png" alt="Book" onclick="goToBooks()">
+  <img class="static-image" id="image3" src="imgs/2-food.png" alt="Food" onclick="goToFood()">
+  <img class="static-image" id="image4" src="imgs/3-travel.png" alt="Travel" onclick="goToTravel()">
+  <img class="static-image" id="image5" src="imgs/4-photog.png" alt="Photography" onclick="goToPhotography()">
   <div id="welcome-text">welcome to abby's little nook on the internet</div>
 
   <div class="news-ticker">
@@ -144,6 +144,29 @@
       const randomCursor = cursorImages[Math.floor(Math.random() * cursorImages.length)];
       document.body.style.cursor = `url('${randomCursor}') 16 16, auto`;
     }
+
+    // Functions to navigate to pages
+    function goToIdeas() {
+      window.location.href = '0-lamp-ideas.html';
+    }
+
+    function goToBooks() {
+      window.location.href = '1-book.html';
+    }
+
+    function goToFood() {
+      window.location.href = '2-food.html';
+    }
+
+    function goToTravel() {
+      window.location.href = '3-travel.html';
+    }
+
+    function goToPhotography() {
+      window.location.href = '4-photog.html';
+    }
+
+
 
     const images = [
       new StaticImage(document.getElementById('image1'), 350, 350),

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Abby's Travel Map</title>
+  <link rel="icon" type="image/png" href="imgs/3-travel.png">
+  
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    @font-face {
+      font-family: 'NyghtSerif-LightItalic';
+      src: url('nyght-serif-main-font-otf/NyghtSerif-LightItalic.otf') format('opentype');
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    @font-face {
+      font-family: 'NyghtSerif-RegularItalic';
+      src: url('nyght-serif-main-font-otf/NyghtSerif-RegularItalic.otf') format('opentype');
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    body {
+      background-color: #F5F5DC;
+      font-family: 'NyghtSerif-LightItalic', serif;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background-color: #F5F5DC;
+      padding: 20px;
+      text-align: center;
+      border-bottom: 2px solid #F57C00;
+      position: relative;
+    }
+
+    .back-button {
+      position: absolute;
+      left: 20px;
+      top: 50%;
+      transform: translateY(-50%);
+      background: none;
+      border: 2px solid #F57C00;
+      color: #F57C00;
+      padding: 8px 16px;
+      font-family: 'NyghtSerif-LightItalic', serif;
+      font-size: 14px;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+    }
+
+    .back-button:hover {
+      background-color: #F57C00;
+      color: #F5F5DC;
+    }
+
+    h1 {
+      color: #333;
+      font-size: 2.5rem;
+      font-family: 'NyghtSerif-LightItalic', serif;
+    }
+
+    .subtitle {
+      color: #666;
+      font-size: 1.2rem;
+      margin-top: 10px;
+    }
+
+    #map {
+      flex: 1;
+      width: 100%;
+      min-height: 500px;
+    }
+
+    .leaflet-popup-content-wrapper {
+      background-color: #F5F5DC;
+      border-radius: 8px;
+    }
+
+    .leaflet-popup-content {
+      font-family: 'NyghtSerif-LightItalic', serif;
+      color: #333;
+      text-align: center;
+    }
+
+    .popup-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #F57C00;
+      margin-bottom: 8px;
+    }
+
+    .popup-description {
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
+    /* Custom marker styles */
+    .custom-marker {
+      background-color: #dc2626;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+
+    .travel-stats {
+      background-color: rgba(245, 245, 220, 0.95);
+      padding: 15px;
+      text-align: center;
+      border-top: 1px solid #F57C00;
+    }
+
+    .stats-content {
+      color: #333;
+      font-size: 1rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="header">
+    <button class="back-button" onclick="goBack()">← Back to Home</button>
+    <h1>My Travel Adventures</h1>
+    <div class="subtitle">Places I've explored around the world</div>
+  </div>
+
+  <div id="map"></div>
+
+  <div class="travel-stats">
+    <div class="stats-content">
+      <span id="country-count">0</span> countries explored • <span id="continent-count">0</span> continents visited
+    </div>
+  </div>
+
+  <!-- Leaflet JavaScript -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  
+  <script>
+    // Initialize the map
+    const map = L.map('map', {
+      center: [35, 110], // Centered roughly on Asia
+      zoom: 3,
+      zoomControl: true,
+      scrollWheelZoom: true
+    });
+
+    // Add tile layer (map style)
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors',
+      maxZoom: 18
+    }).addTo(map);
+
+    // Travel destinations with coordinates and descriptions
+    const destinations = [
+      {
+        name: "Taiwan",
+        coords: [23.8103, 120.9738],
+        description: "Beautiful island with amazing night markets and stunning mountain scenery",
+        continent: "Asia"
+      },
+      {
+        name: "China",
+        coords: [35.8617, 104.1954],
+        description: "Rich history, incredible food, and diverse landscapes from mountains to megacities",
+        continent: "Asia"
+      },
+      {
+        name: "South Korea",
+        coords: [35.9078, 127.7669],
+        description: "Modern cities, delicious cuisine, and fascinating blend of tradition and innovation",
+        continent: "Asia"
+      },
+      {
+        name: "Japan",
+        coords: [36.2048, 138.2529],
+        description: "Cherry blossoms, incredible culture, and the perfect balance of ancient and futuristic",
+        continent: "Asia"
+      },
+      {
+        name: "France",
+        coords: [46.6034, 1.8883],
+        description: "Art, cuisine, and romance - from Parisian cafés to lavender fields in Provence",
+        continent: "Europe"
+      },
+      {
+        name: "United Kingdom",
+        coords: [55.3781, -3.4360],
+        description: "Historic castles, charming countryside, and vibrant cities steeped in history",
+        continent: "Europe"
+      },
+      {
+        name: "Germany",
+        coords: [51.1657, 10.4515],
+        description: "Fairytale castles, Christmas markets, and rich cultural heritage",
+        continent: "Europe"
+      },
+      {
+        name: "United States",
+        coords: [39.8283, -98.5795],
+        description: "Diverse landscapes and cultures from coast to coast",
+        continent: "North America"
+      }
+    ];
+
+    // Custom red marker icon
+    const redIcon = L.divIcon({
+      className: 'custom-marker',
+      iconSize: [20, 20],
+      iconAnchor: [10, 10],
+      popupAnchor: [0, -10]
+    });
+
+    // Add markers to the map
+    destinations.forEach(destination => {
+      const marker = L.marker(destination.coords, { icon: redIcon }).addTo(map);
+      
+      const popupContent = `
+        <div class="popup-title">${destination.name}</div>
+        <div class="popup-description">${destination.description}</div>
+      `;
+      
+      marker.bindPopup(popupContent, {
+        maxWidth: 250,
+        className: 'custom-popup'
+      });
+    });
+
+    // Calculate and display stats
+    const countries = destinations.length;
+    const continents = [...new Set(destinations.map(d => d.continent))].length;
+    
+    document.getElementById('country-count').textContent = countries;
+    document.getElementById('continent-count').textContent = continents;
+
+    // Back button functionality
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+
+    // Add some interactive features
+    map.on('popupopen', function(e) {
+      // Zoom to marker when popup opens
+      map.setView(e.popup.getLatLng(), Math.max(map.getZoom(), 6), {
+        animate: true,
+        duration: 0.5
+      });
+    });
+
+    // Fit map to show all markers on load
+    setTimeout(() => {
+      const group = new L.featureGroup(destinations.map(d => L.marker(d.coords)));
+      map.fitBounds(group.getBounds().pad(0.1));
+    }, 100);
+  </script>
+</body>
+</html>

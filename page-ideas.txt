@@ -1,0 +1,21 @@
+Thoughts & ideas page:
+    1. Mind map/marimekko of ideas distributed (size) by how much I think about them (probably sorted/categorised)
+    2. Fully formed ideas and theses
+    3. Ideas/articles that gave me pause
+
+Books & film:
+    1. Favourite books (book covers), films and why 
+    2. Subheading link, goodreads link accounting for everything I've read
+
+Countries:
+    1. [Requires import] Map with 
+        - red pins on places I've been to
+        - places that mean a lot
+        - places I want to go next for whatever reason
+
+Buildings/architecture:
+    1A. [S tier] A new city you can walk in composed of all my favourite buildings   
+    2B. [Doable] Multiple swimlanes, buildings on each vertical plane, index on the RHS 
+
+Photography:
+    1. [Very time heavy] LHS = select pieces of my own photography, RHS = photographers I'm inspired by: Eric Van Nyatten, Willem Verbeek
