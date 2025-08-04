@@ -3,11 +3,100 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Food</title>
+    <title>Foooooood</title>
     <link rel="icon" type="image/png" href="imgs/2-food.png">
   </head>
 
-  <body>
-    <p>Paragraph</p>
-  </body>
+  <style>
+    @font-face {
+      font-family: 'BZD_COLOUR_RGB';
+      src: url('other-font-otf/bianzhidai_COLR-RGB.otf') format('opentype');
+      font-weight: normal;
+      font-style: italic;
+    }
+
+    body {
+      background-color: #F5F5DC;
+      padding: 20px;
+      padding-left: 10px;
+    }
+
+    .food-icon {
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+        }
+    }
+
+    .last-updated {
+        color: #F57C00;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+
+    h2 {
+      font-family: 'BZD_COLOUR_RGB', serif;
+      font-size: 20px;
+      margin-bottom: 15px;
+      margin-top: 20px;
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    ul {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    li {
+      color: #F57C00;
+    }
+
+    a {
+      color: #F57C00;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <img src="imgs/2-food.png" alt="Food" class="food-icon" onclick="goBack()">
+  
+  <div class="last-updated">Last updated: 04/08/2025</div>
+
+  <h2>A rotating subset of some of my favourite Sydney food institutions</h2>
+  <ul>
+    <li>Khanom House's matcha and thai-influenced desserts</li>
+    <li>A.P. Place's Porchetta or Chicken Salad sandwich in bianca dough</li>
+    <li>Brighter Coffee's roasted zucchini and house pickle on sourdough</li>
+    <li>Abdul's Restaurant for a hearty Middle Eastern feast</li>
+    <li>ellu cafe's exquisite french toast</li>
+    <li>Tenacious Bakehouse's Black Garlic Crown (although i haven't seen it served in a while...)</li>
+    <li>Golden Age Cinema & Bar for the sichuan cocktail popcorn (trust...)</li>
+    <li>Golden Lotus Vegan's vegan chicken pho</li>
+    <li>Ora Restaurant for the best Japanese in Sydney deemed by Amanda K :')</li>
+    <li>胖姨儿手工拉面馆 My Aunt's Handmade Noodles for northern chinese noodles (with free refills!)</li>
+    <li>The Eight for all yumcha needs</li>
+
+  </ul>
+
+  <script>
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+  </script>
+
 </html>
