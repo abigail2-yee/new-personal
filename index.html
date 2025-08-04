@@ -22,16 +22,18 @@
 
     @font-face {
       font-family: 'NyghtSerif-LightItalic';
-      src: url('nyght-serif-main-font-otf/NyghtSerif-LightItalic.otf') format('opentype');
-      font-weight: normal;
+      src: url('fonts/NyghtSerif-LightItalic.ttf') format('truetype');
+      font-weight: 300;
       font-style: italic;
+      font-display: swap;
     }
 
     @font-face {
       font-family: 'NyghtSerif-RegularItalic';
-      src: url('nyght-serif-main-font-otf/NyghtSerif-RegularItalic.otf') format('opentype');
-      font-weight: normal;
+      src: url('fonts/NyghtSerif-RegularItalic.ttf') format('truetype');
+      font-weight: 400;
       font-style: italic;
+      font-display: swap;
     }
 
     /* News ticker - responsive */
@@ -42,7 +44,7 @@
       height: clamp(2rem, 4vw, 3.75rem);
       background-color: #F5F5DC;
       color: #F57C00;
-      font-family: 'NyghtSerif-LightItalic', serif;
+      font-family: 'NyghtSerif-LightItalic', Georgia, 'Times New Roman', serif;
       overflow: hidden;
       z-index: 9999;
       display: flex;
@@ -92,7 +94,7 @@
 
     #welcome-text {
       font-size: clamp(1.5rem, 4vw, 3rem);
-      font-family: 'NyghtSerif-LightItalic', serif;
+      font-family: 'NyghtSerif-LightItalic', Georgia, 'Times New Roman', serif;
       color: #333;
       margin-bottom: clamp(1rem, 2vw, 2rem);
       line-height: 1.2;
@@ -100,7 +102,7 @@
 
     #subheading {
       font-size: clamp(1rem, 2.5vw, 1.5rem);
-      font-family: 'NyghtSerif-LightItalic', serif;
+      font-family: 'NyghtSerif-LightItalic', Georgia, 'Times New Roman', serif;
       color: #333;
       line-height: 1.3;
     }
