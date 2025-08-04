@@ -14,23 +14,10 @@
 
     body {
       background-color: #F5F5DC;
-      height: 100vh;
+      min-height: 100vh;
       font-family: Arial, sans-serif;
-      overflow-y: auto; /* Allow scrolling on mobile for better content access */
-    }
-
-    .static-image {
-      position: absolute;
-      transition: transform 0.3s ease;
-      object-fit: cover;
-    }
-
-    .static-image:hover {
-      transform: scale(1.1);
-    }
-
-    .static-image:active {
-      transform: scale(1.05); /* Touch-friendly feedback for mobile */
+      overflow-x: hidden;
+      position: relative;
     }
 
     @font-face {
@@ -47,40 +34,12 @@
       font-style: italic;
     }
 
-    /* Text container for welcome text and subheading */
-    .text-container {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      z-index: 10;
-      pointer-events: none;
-      width: 80%; /* Default for laptops */
-      max-width: 900px; /* Prevent text from stretching too wide */
-    }
-
-    #welcome-text {
-      font-size: 2.5rem; /* Larger for laptops */
-      font-family: 'NyghtSerif-LightItalic', serif;
-      color: #333;
-      margin-bottom: 1.5rem; /* Increased spacing for better separation */
-    }
-
-    #subheading {
-      font-size: 1.3rem; /* Larger for laptops */
-      font-family: 'NyghtSerif-LightItalic', serif;
-      color: #333;
-    }
-
+    /* News ticker - responsive */
     .news-ticker {
       position: fixed;
       top: 0;
       width: 100%;
-      height: 30px; /* Reduced from 50px for smaller text */
+      height: clamp(2rem, 4vw, 3.75rem);
       background-color: #F5F5DC;
       color: #F57C00;
       font-family: 'NyghtSerif-LightItalic', serif;
@@ -93,7 +52,7 @@
     .ticker-text {
       white-space: nowrap;
       padding-left: 100%;
-      font-size: 1rem;
+      font-size: clamp(0.75rem, 2vw, 1.25rem);
       animation: scroll-left 45s linear infinite;
     }
     
@@ -106,91 +65,181 @@
       }
     }
 
-    /* Media query for tablets and mobile (≤768px) */
-    @media screen and (max-width: 768px) {
-      .text-container {
-        width: 90%; /* Wider for mobile */
-        top: 45%; /* Slightly higher to avoid crowding */
-      }
+    /* Main container for layout */
+    .main-container {
+      min-height: 100vh;
+      padding-top: clamp(2rem, 4vw, 3.75rem);
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
 
-      #welcome-text {
-        font-size: 1.6rem; /* Smaller for mobile */
-      }
+    /* Text container - responsive positioning */
+    .text-container {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      z-index: 10;
+      pointer-events: none;
+      width: min(90vw, 50rem);
+      padding: 1rem;
+    }
 
-      #subheading {
-        font-size: 1rem; /* Smaller for mobile */
-        margin-bottom: 0.5rem; /* Reduced spacing */
-      }
+    #welcome-text {
+      font-size: clamp(1.5rem, 4vw, 3rem);
+      font-family: 'NyghtSerif-LightItalic', serif;
+      color: #333;
+      margin-bottom: clamp(1rem, 2vw, 2rem);
+      line-height: 1.2;
+    }
 
-      .news-ticker {
-        font-size: 14px; /* Smaller for mobile */
-        height: 35px; /* Reduced height */
-      }
+    #subheading {
+      font-size: clamp(1rem, 2.5vw, 1.5rem);
+      font-family: 'NyghtSerif-LightItalic', serif;
+      color: #333;
+      line-height: 1.3;
+    }
 
+    /* Image container for better organization */
+    .images-container {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 1;
+    }
+
+    /* Responsive images */
+    .static-image {
+      position: absolute;
+      transition: transform 0.3s ease;
+      object-fit: cover;
+      cursor: pointer;
+      max-width: min(20vw, 12rem);
+      max-height: min(20vw, 12rem);
+      width: auto;
+      height: auto;
+    }
+
+    .static-image:hover {
+      transform: scale(1.1);
+    }
+
+    .static-image:active {
+      transform: scale(1.05);
+    }
+
+    /* Specific image sizing using CSS custom properties for flexibility */
+    #image1 {
+      --base-size: min(18vw, 11rem);
+      width: var(--base-size);
+      height: var(--base-size);
+    }
+
+    #image2 {
+      --base-size: min(12vw, 7.5rem);
+      width: var(--base-size);
+      height: var(--base-size);
+    }
+
+    #image3 {
+      --base-size: min(15vw, 9.5rem);
+      width: var(--base-size);
+      height: var(--base-size);
+    }
+
+    #image4 {
+      --base-size: min(12vw, 7.5rem);
+      width: var(--base-size);
+      height: var(--base-size);
+    }
+
+    #image5 {
+      --base-size: min(14vw, 8.5rem);
+      width: var(--base-size);
+      height: var(--base-size);
+    }
+
+    /* Mobile-first responsive adjustments */
+    @media screen and (max-width: 48rem) {
       .ticker-text {
-        animation: scroll-left 30s linear infinite; /* Faster for mobile */
+        animation: scroll-left 30s linear infinite;
+      }
+
+      .text-container {
+        width: 95vw;
+        top: 45%;
       }
 
       .static-image {
-        max-width: 150px; /* Limit image size on mobile */
-        max-height: 150px;
+        max-width: min(25vw, 10rem);
+        max-height: min(25vw, 10rem);
       }
+
+      #image1 { --base-size: min(22vw, 9rem); }
+      #image2 { --base-size: min(16vw, 6.5rem); }
+      #image3 { --base-size: min(19vw, 7.5rem); }
+      #image4 { --base-size: min(16vw, 6.5rem); }
+      #image5 { --base-size: min(18vw, 7rem); }
     }
 
-    /* Media query for very small screens (≤480px) */
-    @media screen and (max-width: 480px) {
+    /* Very small screens */
+    @media screen and (max-width: 30rem) {
       .text-container {
-        width: 95%;
-        top: 40%; /* Adjust for tiny screens */
+        top: 40%;
+        width: 98vw;
       }
 
-      #welcome-text {
-        font-size: 1.3rem; /* Even smaller */
+      .static-image {
+        max-width: min(30vw, 8rem);
+        max-height: min(30vw, 8rem);
       }
 
-      #subheading {
-        font-size: 0.8rem;
-      }
-
-      .news-ticker {
-        font-size: 12px;
-        height: 30px;
-      }
+      #image1 { --base-size: min(25vw, 7rem); }
+      #image2 { --base-size: min(18vw, 5rem); }
+      #image3 { --base-size: min(22vw, 6rem); }
+      #image4 { --base-size: min(18vw, 5rem); }
+      #image5 { --base-size: min(20vw, 5.5rem); }
     }
 
-    /* Media query for laptops (≥1024px) */
-    @media screen and (min-width: 1024px) {
+    /* Large screens */
+    @media screen and (min-width: 64rem) {
       .text-container {
-        width: 30%; /* Slightly narrower for larger screens */
-        max-width: 1000px; /* Allow slightly wider text on large laptops */
+        width: min(40vw, 40rem);
       }
 
-      #welcome-text {
-        font-size: 2.8rem; /* Slightly larger for larger screens */
+      .ticker-text {
+        font-size: clamp(1rem, 1.5vw, 1.5rem);
       }
 
-      #subheading {
-        font-size: 1.4rem;
+      #image1 { --base-size: min(16vw, 14rem); }
+      #image2 { --base-size: min(10vw, 9rem); }
+      #image3 { --base-size: min(13vw, 11rem); }
+      #image4 { --base-size: min(10vw, 9rem); }
+      #image5 { --base-size: min(12vw, 10rem); }
+    }
+
+    /* Ultra-wide screens */
+    @media screen and (min-width: 100rem) {
+      .text-container {
+        width: min(25vw, 35rem);
       }
 
-      .news-ticker {
-        font-size: 20px; /* Slightly larger for readability */
-        height: 60px;
-      }
+      #image1 { --base-size: min(12vw, 16rem); }
+      #image2 { --base-size: min(8vw, 11rem); }
+      #image3 { --base-size: min(10vw, 13rem); }
+      #image4 { --base-size: min(8vw, 11rem); }
+      #image5 { --base-size: min(9vw, 12rem); }
     }
   </style>
 </head>
 <body>
-  <img class="static-image" id="image1" src="imgs/0-lamp-ideas.png" alt="Lamp Ideas" aria-label="Navigate to Ideas page" onclick="goToIdeas()">
-  <img class="static-image" id="image2" src="imgs/1-book.png" alt="Book" aria-label="Navigate to Books page" onclick="goToBooks()">
-  <img class="static-image" id="image3" src="imgs/2-food.png" alt="Food" aria-label="Navigate to Food page" onclick="goToFood()">
-  <img class="static-image" id="image4" src="imgs/3-travel.png" alt="Travel" aria-label="Navigate to Travel page" onclick="goToTravel()">
-  <img class="static-image" id="image5" src="imgs/4-photog.png" alt="Photography" aria-label="Navigate to Photography page" onclick="goToPhotography()">
-  <div class="text-container">
-    <div id="welcome-text">welcome to abby's little nook on the internet</div>
-    <div id="subheading">designed to be a second brain</div>
-  </div>
-
   <div class="news-ticker">
     <div class="ticker-text">
       name: abby shen&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -202,22 +251,32 @@
     </div>
   </div>
 
+  <div class="main-container">
+    <div class="images-container">
+      <img class="static-image" id="image1" src="imgs/0-lamp-ideas.png" alt="Lamp Ideas" aria-label="Navigate to Ideas page" onclick="goToIdeas()">
+      <img class="static-image" id="image2" src="imgs/1-book.png" alt="Book" aria-label="Navigate to Books page" onclick="goToBooks()">
+      <img class="static-image" id="image3" src="imgs/2-food.png" alt="Food" aria-label="Navigate to Food page" onclick="goToFood()">
+      <img class="static-image" id="image4" src="imgs/3-travel.png" alt="Travel" aria-label="Navigate to Travel page" onclick="goToTravel()">
+      <img class="static-image" id="image5" src="imgs/4-photog.png" alt="Photography" aria-label="Navigate to Photography page" onclick="goToPhotography()">
+    </div>
+
+    <div class="text-container">
+      <div id="welcome-text">welcome to abby's little nook on the internet</div>
+      <div id="subheading">designed to be a second brain</div>
+    </div>
+  </div>
+
   <script>
-    class StaticImage {
-      constructor(element, baseWidth, baseHeight) {
+    class ResponsiveImage {
+      constructor(element) {
         this.element = element;
-        this.baseWidth = baseWidth;
-        this.baseHeight = baseHeight;
-        this.updateSize();
+        this.updateDimensions();
       }
 
-      updateSize() {
-        const screenWidth = window.innerWidth;
-        const scaleFactor = Math.max(0.3, Math.min(1.2, screenWidth / 1920));
-        this.width = Math.round(this.baseWidth * scaleFactor);
-        this.height = Math.round(this.baseHeight * scaleFactor);
-        this.element.style.width = this.width + 'px';
-        this.element.style.height = this.height + 'px';
+      updateDimensions() {
+        const rect = this.element.getBoundingClientRect();
+        this.width = rect.width;
+        this.height = rect.height;
       }
 
       setPosition(x, y) {
@@ -259,28 +318,44 @@
       window.location.href = 'https://www.abbyshen.com/photography/leica-q2';
     }
 
-    const images = [
-      new StaticImage(document.getElementById('image1'), 350, 350),
-      new StaticImage(document.getElementById('image2'), 200, 200),
-      new StaticImage(document.getElementById('image3'), 300, 300),
-      new StaticImage(document.getElementById('image4'), 200, 200),
-      new StaticImage(document.getElementById('image5'), 250, 250)
-    ];
+    let images = [];
+    let resizeTimeout;
 
-    function generateRandomPositions() {
+    function initializeImages() {
+      images = [
+        new ResponsiveImage(document.getElementById('image1')),
+        new ResponsiveImage(document.getElementById('image2')),
+        new ResponsiveImage(document.getElementById('image3')),
+        new ResponsiveImage(document.getElementById('image4')),
+        new ResponsiveImage(document.getElementById('image5'))
+      ];
+    }
+
+    function generateResponsivePositions() {
+      if (images.length === 0) return;
+
       const positions = [];
-      const minDistance = 50;
-      const maxAttempts = 200;
+      const minDistance = Math.max(20, window.innerWidth * 0.02); // Responsive minimum distance
+      const maxAttempts = 150;
+      const viewportPadding = Math.max(10, window.innerWidth * 0.01); // Responsive padding
 
-      images.forEach(image => image.updateSize());
+      // Update all image dimensions
+      images.forEach(image => image.updateDimensions());
 
-      const welcome = document.getElementById('welcome-text');
-      const welcomeRect = {
-        x: window.innerWidth / 2 - (welcome.offsetWidth / 2),
-        y: window.innerHeight / 2 - (welcome.offsetHeight / 2),
-        width: welcome.offsetWidth,
-        height: welcome.offsetHeight
+      // Get text container boundaries with responsive buffer
+      const textContainer = document.querySelector('.text-container');
+      const textRect = textContainer.getBoundingClientRect();
+      const textBuffer = Math.max(30, window.innerWidth * 0.05); // Responsive buffer around text
+      
+      const textBounds = {
+        x: Math.max(0, textRect.left - textBuffer),
+        y: Math.max(0, textRect.top - textBuffer),
+        width: textRect.width + (textBuffer * 2),
+        height: textRect.height + (textBuffer * 2)
       };
+
+      // Account for ticker height
+      const tickerHeight = document.querySelector('.news-ticker').getBoundingClientRect().height;
 
       for (let i = 0; i < images.length; i++) {
         let validPosition = false;
@@ -288,14 +363,16 @@
         let x, y;
 
         while (!validPosition && attempts < maxAttempts) {
-          x = Math.random() * (window.innerWidth - images[i].width - 50);
-          y = Math.random() * (window.innerHeight - images[i].height - 50);
-
-          x = Math.max(25, Math.min(window.innerWidth - images[i].width - 25, x));
-          y = Math.max(25, Math.min(window.innerHeight - images[i].height - 25, y));
+          // Generate position with responsive constraints
+          const maxX = window.innerWidth - images[i].width - viewportPadding;
+          const maxY = window.innerHeight - images[i].height - viewportPadding;
+          
+          x = viewportPadding + Math.random() * (maxX - viewportPadding);
+          y = tickerHeight + viewportPadding + Math.random() * (maxY - tickerHeight - viewportPadding);
 
           validPosition = true;
 
+          // Check overlap with other images
           for (let j = 0; j < positions.length; j++) {
             const other = images[j];
             const existing = positions[j];
@@ -313,18 +390,36 @@
             }
           }
 
-          const overlapsWelcome = !(
-            x + images[i].width + minDistance < welcomeRect.x ||
-            x > welcomeRect.x + welcomeRect.width + minDistance ||
-            y + images[i].height + minDistance < welcomeRect.y ||
-            y > welcomeRect.y + welcomeRect.height + minDistance
-          );
+          // Check overlap with text container
+          if (validPosition) {
+            const overlapsText = !(
+              x + images[i].width < textBounds.x ||
+              x > textBounds.x + textBounds.width ||
+              y + images[i].height < textBounds.y ||
+              y > textBounds.y + textBounds.height
+            );
 
-          if (overlapsWelcome) {
-            validPosition = false;
+            if (overlapsText) {
+              validPosition = false;
+            }
           }
 
           attempts++;
+        }
+
+        // Fallback positioning if no valid position found
+        if (!validPosition) {
+          const fallbackPositions = [
+            { x: viewportPadding, y: tickerHeight + viewportPadding },
+            { x: window.innerWidth - images[i].width - viewportPadding, y: tickerHeight + viewportPadding },
+            { x: viewportPadding, y: window.innerHeight - images[i].height - viewportPadding },
+            { x: window.innerWidth - images[i].width - viewportPadding, y: window.innerHeight - images[i].height - viewportPadding },
+            { x: window.innerWidth / 4, y: tickerHeight + viewportPadding }
+          ];
+          
+          const fallback = fallbackPositions[i % fallbackPositions.length];
+          x = Math.max(viewportPadding, Math.min(fallback.x, window.innerWidth - images[i].width - viewportPadding));
+          y = Math.max(tickerHeight + viewportPadding, Math.min(fallback.y, window.innerHeight - images[i].height - viewportPadding));
         }
 
         positions.push({ x, y });
@@ -332,9 +427,28 @@
       }
     }
 
-    window.addEventListener('resize', generateRandomPositions);
-    generateRandomPositions();
-    setRandomCursor();
+    function handleResize() {
+      clearTimeout(resizeTimeout);
+      resizeTimeout = setTimeout(() => {
+        generateResponsivePositions();
+      }, 100); // Debounce resize events
+    }
+
+    // Initialize everything
+    function initialize() {
+      initializeImages();
+      generateResponsivePositions();
+      setRandomCursor();
+    }
+
+    // Wait for images to load before positioning
+    window.addEventListener('load', initialize);
+    window.addEventListener('resize', handleResize);
+
+    // Fallback initialization
+    if (document.readyState === 'complete') {
+      initialize();
+    }
   </script>
 
   <script src="https://unpkg.com/playhtml@latest/dist/playhtml.js"></script>
