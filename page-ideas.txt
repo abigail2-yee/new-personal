@@ -1,6 +1,8 @@
-Tuesday:
-- Connect new website to abbyshen.comp
-- Photography portfolio
+Tuesday To Dos:
+- Ensure that all the code is using principles of "responsive web design" so that it is mobile friendly
+- Check why the font is not working on mobile 
+- Connect new website to abbyshen.com 
+- Update the Photography page so that it has select few photos (may have to do after returning work laptop)
 
 Thoughts & ideas page:
     1. Mind map/marimekko of ideas distributed (size) by how much I think about them (probably sorted/categorised)
