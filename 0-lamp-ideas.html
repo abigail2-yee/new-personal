@@ -23,8 +23,25 @@
     .lamp-icon {
       width: 80px;
       height: 80px;
-      margin-bottom: 20px;
       cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+        }
+    }
+
+    .last-updated {
+        color: #F57C00;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        margin-top: 5px;
+        margin-bottom: 15px;
     }
 
     h2 {
@@ -50,10 +67,6 @@
 
     a {
       color: #F57C00;
-      text-decoration: none;
-    }
-
-    a:hover {
       text-decoration: underline;
     }
   </style>
@@ -61,11 +74,13 @@
 <body>
   <img src="imgs/0-lamp-ideas.png" alt="Ideas" class="lamp-icon" onclick="goBack()">
   
+  <div class="last-updated">Last updated: 04/08/2025</div>
+
   <h2>What I've been thinking about recently</h2>
   <ul>
-    <li>Jungian's shadow self</li>
-    <li>playing language games</li>
-    <li>the tension between simplification and being puritanical about keeping complexity in its full form</li>
+    <li>Jung's model of the psyche</li>
+    <li>All the factors that influence one's conceptualisation of the world e.g., language (Sapir-Whorf Hypothesis)</li>
+    <li>The ever-present tension I personally feel around simplifying concepts for ease of understanding and being puritanical about keeping complexity in its full form for complete understanding (and learning to appreciate both)</li>
   </ul>
 
   <h2>Fully formed ideas in the form of essays</h2>
@@ -73,10 +88,17 @@
     <li>Watch this space!</li>
   </ul>
 
-  <h2>Readings that got me thinking</h2>
+  <h2>Readings that have stayed with me</h2>
   <ul>
-    <li><a href="https://www.henrikkarlsson.xyz/p/looking-for-alice" target="_blank">Looking for Alice</a></li>
-    <li><a href="https://www.theparisreview.org/blog/2019/07/16/the-crane-wife/" target="_blank">The Crane Wife</a></li>
+    <li><a href="https://www.henrikkarlsson.xyz/p/looking-for-alice" target="_blank">Looking for Alice</a> - Henrik Karlsson's approach to finding your individual</li>
+    <li><a href="https://www.theparisreview.org/blog/2019/07/16/the-crane-wife/" target="_blank">The Crane Wife</a> - no one can survive denying their own needs</li>
+  </ul>
+
+  <h2>Quotes on my mind lately</h2>
+  <ul>
+    <li>"Service is the only thing that makes anything feel better in a real, lasting way. This is because acts of service provide a temporary respite from the inherent cognitive dissonance of living selfishly." - Cate Hall</li>
+    <li>“When you arise in the morning think of what a privilege it is to be alive, to think, to enjoy, to love ...” - Marcus Aurelius</li>
+    <li>"I learned that people whose admiration I actually wanted could see me eat shit, and say so, and the world wouldn’t turn to ash." - Cate Hall</li>
   </ul>
 
   <script>

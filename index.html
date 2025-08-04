@@ -44,17 +44,31 @@
     }
 
     #welcome-text {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 60%;
-    text-align: center;
-    font-size: 2.2rem;
-    font-family: 'NyghtSerif-LightItalic', serif;
-    color: #333;
-    z-index: 10; /* Stay above images */
-    pointer-events: none; /* So it doesn’t interfere with hovering images */
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60%;
+      text-align: center;
+      font-size: 2.2rem;
+      font-family: 'NyghtSerif-LightItalic', serif;
+      color: #333;
+      z-index: 10; /* Stay above images */
+      pointer-events: none; /* So it doesn’t interfere with hovering images */
+    }
+
+      #subheading {
+        position: fixed;
+        top: 57%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        width: 40%;
+        text-align: center;
+        font-size: 1.2rem;
+        font-family: 'NyghtSerif-LightItalic', serif;
+        color: #333;
+        z-index: 10; /* Stay above images */
+        pointer-events: none; /* So it doesn’t interfere with hovering images */
     }
     
     .news-ticker {
@@ -95,6 +109,7 @@
   <img class="static-image" id="image4" src="imgs/3-travel.png" alt="Travel" onclick="goToTravel()">
   <img class="static-image" id="image5" src="imgs/4-photog.png" alt="Photography" onclick="goToPhotography()">
   <div id="welcome-text">welcome to abby's little nook on the internet</div>
+  <div id="subheading">designed to be a somewhat up to date second brain</div>
 
   <div class="news-ticker">
     <div class="ticker-text">
