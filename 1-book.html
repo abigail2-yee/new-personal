@@ -6,8 +6,93 @@
     <title>Book and film</title>
     <link rel="icon" type="image/png" href="imgs/1-book.png">
   </head>
+  
+  <style>
+    @font-face {
+      font-family: 'BZD_COLOUR_RGB';
+      src: url('other-font-otf/bianzhidai_COLR-RGB.otf') format('opentype');
+      font-weight: normal;
+      font-style: italic;
+    }
 
-  <body>
-    <p>Paragraph</p>
-  </body>
+    body {
+      background-color: #F5F5DC;
+      padding: 20px;
+      padding-left: 10px;
+    }
+
+    .book-icon {
+      width: 80px;
+      height: 80px;
+      cursor: pointer;
+      animation: float 3s ease-in-out infinite;
+    }
+
+    @keyframes float {
+    0%, 100% {
+        transform: translateY(0px);
+    }
+    50% {
+        transform: translateY(-10px);
+        }
+    }
+    
+    .last-updated {
+        color: #F57C00;
+        font-family: Arial, sans-serif;
+        font-size: 12px;
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+
+
+    h2 {
+      font-family: 'BZD_COLOUR_RGB', serif;
+      font-size: 20px;
+      margin-bottom: 15px;
+      margin-top: 20px;
+    }
+
+    h2:first-of-type {
+      margin-top: 0;
+    }
+
+    ul {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      margin-bottom: 30px;
+    }
+
+    li {
+      color: #F57C00;
+    }
+
+    a {
+      color: #F57C00;
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <img src="imgs/1-book.png" alt="Book" class="book-icon" onclick="goBack()">
+  
+  <div class="last-updated">Last updated: 04/08/2025</div>
+
+  <h2>Books that have stayed with me</h2>
+  <ul>
+    <li>The Will to Change (Bell Hooks)</li>
+    <li>Be Not Afraid of Love (Mimi Zhu)</li>
+    <li>On Women (Susan Sontag)</li>
+    <li>Crying in H Mart (Michelle Zauner)</li>
+    <li>Poverty, by America (Matthew Desmond)</li>
+  </ul>
+
+
+  <script>
+    function goBack() {
+      window.location.href = 'index.html';
+    }
+  </script>
+
+
 </html>
